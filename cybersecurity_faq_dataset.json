@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "question": "What is cybersecurity?",
+    "answer": "Cybersecurity is the practice of protecting computers, networks, applications, and data from unauthorised access, damage, disruption, or theft.",
+    "category": "Fundamentals",
+    "keywords": "cybersecurity, information security, protection, data security",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 2,
+    "question": "What is the CIA triad in information security?",
+    "answer": "The CIA triad is a model with three goals: confidentiality (preventing unauthorised disclosure), integrity (preventing unauthorised changes), and availability (keeping systems and data accessible when needed).",
+    "category": "Fundamentals",
+    "keywords": "CIA triad, confidentiality, integrity, availability",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 3,
+    "question": "What is a vulnerability?",
+    "answer": "A vulnerability is a weakness in a system, application, process, or security control that could be exploited or triggered and cause harm.",
+    "category": "Fundamentals",
+    "keywords": "vulnerability, weakness, security flaw, exposure",
+    "source": "https://csrc.nist.gov/glossary/term/vulnerability"
+  },
+  {
+    "id": 4,
+    "question": "What is a threat in cybersecurity?",
+    "answer": "A threat is a circumstance or event with the potential to cause harm to a system, organisation, or person by affecting information or systems.",
+    "category": "Fundamentals",
+    "keywords": "threat, risk, attack, security",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 5,
+    "question": "What is the difference between a threat, vulnerability, and risk?",
+    "answer": "A threat is a potential cause of harm, a vulnerability is a weakness that may be exploited, and risk is the possibility and impact of harm when a threat exploits a vulnerability.",
+    "category": "Fundamentals",
+    "keywords": "threat, vulnerability, risk, security concepts",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 6,
+    "question": "What is malware?",
+    "answer": "Malware is software or code designed to perform harmful or unauthorised actions, such as stealing information, disrupting operations, or gaining unauthorised access.",
+    "category": "Threats",
+    "keywords": "malware, malicious software, virus, trojan, worm",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 7,
+    "question": "What is a computer virus?",
+    "answer": "A computer virus is a type of malware that attaches itself to a file or program and can spread when the infected file or program is run.",
+    "category": "Threats",
+    "keywords": "virus, malware, infected file, malicious code",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 8,
+    "question": "What is ransomware?",
+    "answer": "Ransomware is malware that blocks access to systems or data, commonly by encrypting files, and demands payment to restore access. Paying does not guarantee recovery.",
+    "category": "Threats",
+    "keywords": "ransomware, file encryption, extortion, malware",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 9,
+    "question": "What is phishing?",
+    "answer": "Phishing is a social-engineering attack in which an attacker impersonates a trusted person or organisation to trick someone into sharing sensitive information, opening a malicious link, or taking an unsafe action.",
+    "category": "Threats",
+    "keywords": "phishing, fake email, social engineering, scam",
+    "source": "https://csrc.nist.gov/glossary/term/phishing"
+  },
+  {
+    "id": 10,
+    "question": "What is social engineering?",
+    "answer": "Social engineering is the use of deception or manipulation to influence people into revealing information, granting access, or performing actions that weaken security.",
+    "category": "Threats",
+    "keywords": "social engineering, manipulation, deception, phishing",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 11,
+    "question": "What is a brute-force attack?",
+    "answer": "A brute-force attack repeatedly tries possible passwords or authentication values until a correct one is found. Rate limits, multi-factor authentication, and strong unique passwords help reduce the risk.",
+    "category": "Threats",
+    "keywords": "brute force, password guessing, login attack, rate limiting",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 12,
+    "question": "What is a denial-of-service (DoS) attack?",
+    "answer": "A denial-of-service attack attempts to make a system or service unavailable to legitimate users, often by overwhelming it with traffic or requests.",
+    "category": "Threats",
+    "keywords": "DoS, denial of service, availability, traffic flood",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 13,
+    "question": "What is a firewall?",
+    "answer": "A firewall is a hardware or software security control that monitors and filters network traffic according to defined rules to help prevent unauthorised access.",
+    "category": "Network Security",
+    "keywords": "firewall, network traffic, filtering, access control",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 14,
+    "question": "What is a VPN?",
+    "answer": "A virtual private network (VPN) creates an encrypted connection across another network, such as the internet. It can help protect traffic in transit, but it does not make a device or user completely anonymous or secure.",
+    "category": "Network Security",
+    "keywords": "VPN, virtual private network, encrypted tunnel, network privacy",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 15,
+    "question": "What is encryption?",
+    "answer": "Encryption transforms readable data (plaintext) into an unreadable form (ciphertext) using a cryptographic method and key. The data can be decrypted by an authorised party with the required key.",
+    "category": "Network Security",
+    "keywords": "encryption, plaintext, ciphertext, cryptography, key",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 16,
+    "question": "What is HTTPS?",
+    "answer": "HTTPS is HTTP protected by Transport Layer Security (TLS). It helps protect data exchanged between a browser and a website against eavesdropping and tampering while in transit, and helps authenticate the website.",
+    "category": "Network Security",
+    "keywords": "HTTPS, HTTP, TLS, secure connection, browser",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 17,
+    "question": "What is multi-factor authentication (MFA)?",
+    "answer": "Multi-factor authentication requires two or more different types of evidence to verify a user's identity, such as something the user knows, has, or is. It adds protection beyond a password alone.",
+    "category": "Account Security",
+    "keywords": "MFA, multi-factor authentication, two-factor authentication, login",
+    "source": "https://pages.nist.gov/800-63-4/sp800-63/glossary/"
+  },
+  {
+    "id": 18,
+    "question": "What makes a password strong?",
+    "answer": "A strong password is long, unique to one account, and difficult to guess. Using a password manager to create and store unique passwords is safer than reusing the same password across services.",
+    "category": "Account Security",
+    "keywords": "strong password, passphrase, password manager, account security",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 19,
+    "question": "What is a password manager?",
+    "answer": "A password manager is an application that securely stores and can generate passwords, helping users maintain a different strong password for each account.",
+    "category": "Account Security",
+    "keywords": "password manager, password storage, unique passwords, credentials",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 20,
+    "question": "What is a software security patch?",
+    "answer": "A security patch is a software update that fixes a known security weakness or improves protection. Installing updates promptly helps reduce exposure to vulnerabilities.",
+    "category": "Defensive Security",
+    "keywords": "patch, security update, vulnerability fix, software maintenance",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 21,
+    "question": "What is SQL injection?",
+    "answer": "SQL injection is a vulnerability in which untrusted input is handled in a way that changes the structure of a database query. Using parameterized queries is a key defence.",
+    "category": "Web Application Security",
+    "keywords": "SQL injection, SQLi, database, parameterized queries, input validation",
+    "source": "https://owasp.org/www-community/attacks/SQL_Injection"
+  },
+  {
+    "id": 22,
+    "question": "What is cross-site scripting (XSS)?",
+    "answer": "Cross-site scripting (XSS) is a web application vulnerability that allows attacker-controlled script to execute in another user's browser in the context of a trusted website. Context-aware output encoding and safe handling of untrusted content help prevent it.",
+    "category": "Web Application Security",
+    "keywords": "XSS, cross-site scripting, browser, output encoding, web security",
+    "source": "https://csrc.nist.gov/glossary/term/cross_site_scripting"
+  },
+  {
+    "id": 23,
+    "question": "What is cross-site request forgery (CSRF)?",
+    "answer": "CSRF is an attack that tricks a user's browser into sending an unwanted request to a website where the user is already authenticated. Anti-CSRF tokens and appropriate cookie settings are common defences.",
+    "category": "Web Application Security",
+    "keywords": "CSRF, cross-site request forgery, browser, session, anti-CSRF token",
+    "source": "https://pages.nist.gov/800-63-4/sp800-63/glossary/"
+  },
+  {
+    "id": 24,
+    "question": "What is broken access control?",
+    "answer": "Broken access control occurs when an application does not properly enforce what an authenticated user is allowed to view or do, potentially exposing another user's data or restricted functions.",
+    "category": "Web Application Security",
+    "keywords": "broken access control, authorisation, IDOR, permissions, OWASP",
+    "source": "https://owasp.org/Top10/"
+  },
+  {
+    "id": 25,
+    "question": "What is the principle of least privilege?",
+    "answer": "The principle of least privilege means giving each user, process, or system only the permissions needed to perform its assigned tasks, and no more.",
+    "category": "Defensive Security",
+    "keywords": "least privilege, permissions, access control, account security",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 26,
+    "question": "Why are backups important for cybersecurity?",
+    "answer": "Backups provide recoverable copies of important data if the original data is lost, damaged, deleted, or encrypted by ransomware. Backups should be protected and restoration should be tested.",
+    "category": "Defensive Security",
+    "keywords": "backup, recovery, ransomware, data protection, restore",
+    "source": "https://www.cisa.gov/stopransomware"
+  },
+  {
+    "id": 27,
+    "question": "What is an intrusion detection system (IDS)?",
+    "answer": "An intrusion detection system monitors network or system activity for suspicious behaviour or signs of known threats and generates alerts for investigation.",
+    "category": "Defensive Security",
+    "keywords": "IDS, intrusion detection, monitoring, security alerts",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 28,
+    "question": "What is a security incident?",
+    "answer": "A security incident is an event that actually or potentially jeopardises the confidentiality, integrity, or availability of information or systems, or violates a security policy.",
+    "category": "Incident Response",
+    "keywords": "security incident, breach, compromise, CIA triad",
+    "source": "https://csrc.nist.gov/pubs/ir/7298/r3/final"
+  },
+  {
+    "id": 29,
+    "question": "What should you do if you receive a suspicious email?",
+    "answer": "Do not click links, open unexpected attachments, or share credentials. Verify the request through a separate trusted channel, report the message using your organisation's process, and delete or quarantine it according to policy.",
+    "category": "Incident Response",
+    "keywords": "suspicious email, phishing, report, email safety",
+    "source": "https://www.ncsc.gov.uk/section/advice-guidance/glossary"
+  },
+  {
+    "id": 30,
+    "question": "What is vulnerability assessment?",
+    "answer": "A vulnerability assessment is a structured process for identifying, analysing, and prioritising security weaknesses in systems or applications so they can be addressed.",
+    "category": "Security Testing",
+    "keywords": "vulnerability assessment, security testing, weakness, remediation",
+    "source": "https://csrc.nist.gov/glossary/term/vulnerability"
+  }
+]
