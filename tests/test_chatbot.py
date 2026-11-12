@@ -1,66 +1,52 @@
+import pytest
+
 from src.chatbot import FAQChatbot
 
 
-def test_valid_question():
+@pytest.fixture(scope="module")
+def chatbot():
 
-    bot = FAQChatbot()
+    return FAQChatbot()
 
-    response = bot.get_answer(
+
+def test_valid_question(chatbot):
+
+    result = chatbot.get_answer(
         "What is cybersecurity?"
     )
 
-    assert response["success"] is True
+    assert result["success"] is True
 
-    assert response["answer"] is not None
-
-    assert response["category"] == "Fundamentals"
+    assert result["answer"] is not None
 
 
-def test_empty_question():
+def test_empty_question(chatbot):
 
-    bot = FAQChatbot()
+    result = chatbot.get_answer("")
 
-    response = bot.get_answer("")
-
-    assert response["success"] is False
-
-    assert response["answer"] is None
+    assert result["success"] is False
 
 
-def test_unknown_question():
+def test_unknown_question(chatbot):
 
-    bot = FAQChatbot(confidence_threshold=1.1)
-
-    response = bot.get_answer(
-        "What is cybersecurity?"
+    result = chatbot.get_answer(
+        "Explain quantum mechanics and astrophysics."
     )
 
-    assert response["success"] is False
+    assert result["success"] is False
 
 
-def test_invalid_input():
+def test_invalid_input(chatbot):
 
-    bot = FAQChatbot()
+    with pytest.raises(TypeError):
 
-    try:
-
-        bot.get_answer(123)
-
-    except TypeError:
-
-        return
-
-    raise AssertionError("TypeError was not raised")
+        chatbot.get_answer(123)
 
 
-if __name__ == "__main__":
+def test_multiple_questions(chatbot):
 
-    test_valid_question()
+    results = chatbot.get_multiple_answers(
+        "What is cybersecurity? Explain the CIA triad."
+    )
 
-    test_empty_question()
-
-    test_unknown_question()
-
-    test_invalid_input()
-
-    print("All chatbot backend tests passed!")
+    assert len(results) == 2

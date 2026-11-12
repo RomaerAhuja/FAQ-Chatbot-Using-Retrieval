@@ -1,21 +1,18 @@
+import re
+
 from src.similarity import FAQSimilarity
 
 
 class FAQChatbot:
 
-    def __init__(self, confidence_threshold=0.20):
+    def __init__(self, similarity_threshold=0.55):
 
         self.similarity_engine = FAQSimilarity()
 
-        self.confidence_threshold = confidence_threshold
+        self.similarity_threshold = similarity_threshold
 
     def get_answer(self, user_query):
 
-        """
-        Retrieve the most relevant FAQ answer.
-        """
-
-        # Validate input
         if not isinstance(user_query, str):
             raise TypeError("Query must be a string.")
 
@@ -27,75 +24,108 @@ class FAQChatbot:
                 "answer": None
             }
 
-        # Retrieve ranked FAQ results
         results = self.similarity_engine.rank_faqs(
             user_query,
             top_n=5
         )
 
-        # Get best matching result
-        best_match = results[0]
-
-        confidence = best_match["similarity"]
-
-        # Confidence threshold check
-        if confidence < self.confidence_threshold:
+        if not results:
 
             return {
                 "success": False,
-                "message": "Sorry, I couldn't find a relevant answer in my knowledge base.",
-                "answer": None,
-                "confidence": confidence
+                "message": "No matching information found.",
+                "answer": None
             }
 
-        # Return retrieved answer
+        best_match = results[0]
+
+        score = best_match["similarity"]
+
+        if score < self.similarity_threshold:
+
+            return {
+                "success": False,
+                "message": (
+                    "Sorry, I couldn't find a relevant "
+                    "answer in my knowledge base."
+                ),
+                "answer": None,
+                "similarity": score
+            }
+
         return {
+
             "success": True,
+
             "question": best_match["question"],
+
             "answer": best_match["answer"],
+
             "category": best_match["category"],
+
             "source": best_match["source"],
-            "confidence": confidence
+
+            "similarity": score,
+
+            "tfidf_score": best_match["tfidf_score"],
+
+            "semantic_score": best_match["semantic_score"]
+
         }
 
+    def get_multiple_answers(self, user_query):
 
-# Convenient function for external modules
+        if not isinstance(user_query, str):
+            raise TypeError("Query must be a string.")
 
-chatbot = FAQChatbot()
+        if not user_query.strip():
+            return []
 
+        questions = [
+            part.strip()
+            for part in re.split(
+                r"(?<=[.!?])\s+",
+                user_query
+            )
+            if part.strip()
+        ]
 
-def get_answer(user_query):
+        if len(questions) <= 1:
+            return [self.get_answer(user_query)]
 
-    return chatbot.get_answer(user_query)
+        return [
+            self.get_answer(question)
+            for question in questions
+        ]
 
 
 if __name__ == "__main__":
 
-    print("\nFAQ CHATBOT BACKEND")
-    print("=" * 50)
+    chatbot = FAQChatbot()
+
+    print("CYBERFAQ CHATBOT")
+    print("Type 'exit' to stop.")
 
     while True:
 
         query = input("\nYou: ")
 
-        if query.lower() in ["exit", "quit", "bye"]:
-
-            print("Chatbot: Goodbye!")
-
+        if query.lower().strip() in ["exit", "quit", "bye"]:
             break
 
-        response = get_answer(query)
+        response = chatbot.get_answer(query)
 
         if response["success"]:
 
-            print("\nChatbot:", response["answer"])
+            print("\nCyberFAQ:", response["answer"])
 
             print("Category:", response["category"])
 
-            print("Confidence:", round(response["confidence"], 4))
-
-            print("Source:", response["source"])
+            print(
+                "Similarity:",
+                round(response["similarity"], 4)
+            )
 
         else:
 
-            print("\nChatbot:", response["message"])
+            print("\nCyberFAQ:", response["message"])

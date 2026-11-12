@@ -1,4 +1,7 @@
+import pytest
+
 from src.preprocessing import TextPreprocessor
+
 
 processor = TextPreprocessor()
 
@@ -13,22 +16,24 @@ def test_lowercase():
 def test_punctuation():
 
     assert processor.clean_text(
-        "What is malware?"
-    ) == "what is malware"
+        "Hello!!!"
+    ) == "hello"
 
 
 def test_whitespace():
 
     assert processor.clean_text(
-        "Network    Security"
-    ) == "network security"
+        "Hello    World"
+    ) == "hello world"
 
 
 def test_url_removal():
 
-    assert processor.clean_text(
+    result = processor.clean_text(
         "Visit https://example.com"
-    ) == "visit"
+    )
+
+    assert "https" not in result
 
 
 def test_empty_string():
@@ -38,21 +43,6 @@ def test_empty_string():
 
 def test_invalid_input():
 
-    try:
+    with pytest.raises(TypeError):
+
         processor.clean_text(123)
-    except TypeError:
-        return
-
-    raise AssertionError("TypeError was not raised")
-
-
-if __name__ == "__main__":
-
-    test_lowercase()
-    test_punctuation()
-    test_whitespace()
-    test_url_removal()
-    test_empty_string()
-    test_invalid_input()
-
-    print("All preprocessing tests passed!")

@@ -1,97 +1,88 @@
 import streamlit as st
-import sys
-from pathlib import Path
-
-# Add project root to Python path
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-if str(BASE_DIR) not in sys.path:
-    sys.path.insert(0, str(BASE_DIR))
 
 from src.chatbot import FAQChatbot
 
 
-# Page configuration
 st.set_page_config(
-    page_title="CyberFAQ | AI Chatbot",
+    page_title="CyberFAQ | AI Cybersecurity Assistant",
     page_icon="🔐",
     layout="centered"
 )
 
 
-# Initialize chatbot
 @st.cache_resource
 def load_chatbot():
+
     return FAQChatbot()
 
 
 chatbot = load_chatbot()
 
 
-# Session state
 if "messages" not in st.session_state:
+
     st.session_state.messages = []
 
 
-# Custom CSS
 st.markdown("""
 <style>
 
-.main {
-    background-color: #0E1117;
+.stApp {
+    background-color: #0b0f19;
+    color: #ffffff;
 }
 
-.title {
-    text-align: center;
-    font-size: 38px;
-    font-weight: bold;
-    color: #58A6FF;
+section[data-testid="stSidebar"] {
+    background-color: #111827;
 }
 
-.subtitle {
-    text-align: center;
-    color: #AAB4C3;
-    font-size: 15px;
+h1, h2, h3 {
+    color: #ffffff;
 }
 
 .stChatMessage {
     border-radius: 12px;
 }
 
+.stButton button {
+    border-radius: 10px;
+    border: 1px solid #374151;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 
-# Sidebar
 with st.sidebar:
 
     st.title("🔐 CyberFAQ")
 
-    st.markdown("---")
-
     st.subheader("About")
 
     st.write(
-        "CyberFAQ is a retrieval-based chatbot "
-        "that answers cybersecurity questions "
-        "using a predefined knowledge base."
+        "CyberFAQ is a hybrid retrieval-based "
+        "cybersecurity FAQ chatbot."
     )
 
-    st.markdown("---")
+    st.divider()
 
-    st.subheader("Technology")
+    st.markdown("### Technology Stack")
 
     st.write("""
     - Python
-    - Streamlit
-    - Scikit-learn
     - TF-IDF
+    - Sentence Transformers
     - Cosine Similarity
+    - Hybrid Retrieval
+    - Streamlit
     """)
 
-    st.markdown("---")
+    st.divider()
 
-    if st.button("🗑️ Clear Conversation", use_container_width=True):
+    if st.button(
+        "🗑️ Clear Conversation",
+        use_container_width=True
+    ):
 
         st.session_state.messages = []
 
@@ -100,88 +91,84 @@ with st.sidebar:
     st.caption("FAQ Chatbot Using Retrieval")
 
 
-# Main heading
-st.markdown(
-    '<div class="title">🔐 CyberFAQ</div>',
-    unsafe_allow_html=True
+st.title("🔐 CyberFAQ")
+
+st.caption(
+    "Your AI-powered cybersecurity knowledge assistant."
 )
 
-st.markdown(
-    '<div class="subtitle">'
-    'Your Cybersecurity Knowledge Assistant'
-    '</div>',
-    unsafe_allow_html=True
-)
 
-st.markdown("---")
-
-
-# Welcome message
 if not st.session_state.messages:
 
     st.info(
-        "Welcome! Ask me anything about cybersecurity."
+        "Welcome to CyberFAQ! Ask me anything "
+        "about cybersecurity."
     )
 
     st.markdown("### Suggested Questions")
 
     suggestions = [
+
         "What is cybersecurity?",
+
         "What is phishing?",
+
         "What is ransomware?",
-        "What is the CIA triad?"
+
+        "Explain the CIA triad."
+
     ]
 
-    cols = st.columns(2)
+    for question in suggestions:
 
-    for index, question in enumerate(suggestions):
+        if st.button(question, use_container_width=True):
 
-        with cols[index % 2]:
+            st.session_state.pending_query = question
 
-            if st.button(question, use_container_width=True):
-
-                st.session_state.pending_query = question
-
-                st.rerun()
+            st.rerun()
 
 
-# Display conversation history
 for message in st.session_state.messages:
 
     with st.chat_message(message["role"]):
 
         st.markdown(message["content"])
 
-        if message["role"] == "assistant" and message.get("metadata"):
+        if message["role"] == "assistant":
 
-            metadata = message["metadata"]
-
-            if metadata.get("category"):
+            if message.get("success"):
 
                 st.caption(
-                    f"Category: {metadata['category']}"
+                    f"Category: {message['category']}"
                 )
-
-            if metadata.get("confidence") is not None:
 
                 st.caption(
-                    f"Similarity Score: "
-                    f"{metadata['confidence']:.4f}"
+                    f"Hybrid similarity: "
+                    f"{message['similarity']:.4f}"
                 )
 
-            if metadata.get("source"):
-
-                st.markdown(
-                    f"[View Source]({metadata['source']})"
+                st.caption(
+                    f"TF-IDF score: "
+                    f"{message['tfidf_score']:.4f}"
                 )
 
+                st.caption(
+                    f"Semantic score: "
+                    f"{message['semantic_score']:.4f}"
+                )
 
-# Process user input
+                if message.get("source"):
+
+                    st.markdown(
+                        f"[View Source]({message['source']})"
+                    )
+
+
 user_query = st.chat_input(
     "Ask a cybersecurity question..."
 )
 
-# Handle suggested question
+
 if "pending_query" in st.session_state:
 
     user_query = st.session_state.pop("pending_query")
@@ -189,44 +176,99 @@ if "pending_query" in st.session_state:
 
 if user_query:
 
-    # Display user message
     st.session_state.messages.append({
+
         "role": "user",
+
         "content": user_query
-    })
-
-    # Retrieve chatbot response
-    response = chatbot.get_answer(user_query)
-
-    if response["success"]:
-
-        answer = response["answer"]
-
-        metadata = {
-            "category": response["category"],
-            "confidence": response["confidence"],
-            "source": response["source"]
-        }
-
-    else:
-
-        answer = response["message"]
-
-        metadata = {
-            "category": None,
-            "confidence": response.get("confidence"),
-            "source": None
-        }
-
-    # Save assistant response
-    st.session_state.messages.append({
-
-        "role": "assistant",
-
-        "content": answer,
-
-        "metadata": metadata
 
     })
+
+    with st.chat_message("user"):
+
+        st.markdown(user_query)
+
+    with st.chat_message("assistant"):
+
+        with st.spinner("Searching knowledge base..."):
+
+            responses = chatbot.get_multiple_answers(
+                user_query
+            )
+
+        successful = [
+            response
+            for response in responses
+            if response["success"]
+        ]
+
+        if not successful:
+
+            st.markdown(
+                "Sorry, I couldn't find a relevant answer "
+                "in my knowledge base."
+            )
+
+            assistant_message = {
+
+                "role": "assistant",
+
+                "content": (
+                    "Sorry, I couldn't find a relevant "
+                    "answer in my knowledge base."
+                ),
+
+                "success": False
+
+            }
+
+        else:
+
+            answer_parts = []
+
+            for response in responses:
+
+                if response["success"]:
+
+                    answer_parts.append(
+                        f"**{response['question']}**\n\n"
+                        f"{response['answer']}"
+                    )
+
+                else:
+
+                    answer_parts.append(
+                        response["message"]
+                    )
+
+            combined_answer = "\n\n---\n\n".join(
+                answer_parts
+            )
+
+            st.markdown(combined_answer)
+
+            assistant_message = {
+
+                "role": "assistant",
+
+                "content": combined_answer,
+
+                "success": True,
+
+                "category": successful[0]["category"],
+
+                "similarity": successful[0]["similarity"],
+
+                "tfidf_score": successful[0]["tfidf_score"],
+
+                "semantic_score": successful[0]["semantic_score"],
+
+                "source": successful[0]["source"]
+
+            }
+
+        st.session_state.messages.append(
+            assistant_message
+        )
 
     st.rerun()

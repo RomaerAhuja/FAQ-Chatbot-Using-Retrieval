@@ -1,114 +1,237 @@
-# Cybersecurity FAQ Knowledge Base
+# 🔐 CyberFAQ — Hybrid Retrieval-Based Cybersecurity FAQ Chatbot
 
-## Project overview
+CyberFAQ is a hybrid retrieval-based chatbot designed to answer frequently asked questions related to cybersecurity.
 
-This dataset is the FAQ knowledge base for the **FAQ Chatbot Using Retrieval** college team project. It contains 30 cybersecurity questions and concise answers. The chatbot's retrieval pipeline can compare a user's question with the stored FAQ questions and return the answer associated with the best match.
+The system combines traditional keyword-based information retrieval using TF-IDF with semantic search using Sentence Transformers to identify relevant answers from a predefined cybersecurity knowledge base.
 
-## Dataset files
+## 🚀 Features
 
-- `cybersecurity_faq_dataset.csv` — spreadsheet-friendly version.
-- `cybersecurity_faq_dataset.json` — JSON version for application integration.
+- Cybersecurity FAQ knowledge base
+- CSV and JSON dataset support
+- Text preprocessing and normalization
+- TF-IDF-based keyword retrieval
+- Semantic retrieval using Sentence Transformers
+- Cosine similarity calculation
+- Hybrid similarity scoring
+- Ranked FAQ retrieval
+- Configurable similarity threshold
+- Fallback response mechanism
+- Multiple-question handling
+- Interactive Streamlit user interface
+- Conversation history
+- Automated testing using Pytest
 
-Both files contain the same 30 FAQ records.
+## 🛠️ Technology Stack
 
-## Dataset schema
+| Component | Technology |
+|---|---|
+| Programming Language | Python |
+| Data Processing | Pandas, NumPy |
+| Keyword Retrieval | TF-IDF |
+| Semantic Retrieval | Sentence Transformers |
+| Embedding Model | all-MiniLM-L6-v2 |
+| Similarity Calculation | Cosine Similarity |
+| Machine Learning | Scikit-learn, PyTorch |
+| Frontend | Streamlit |
+| Testing | Pytest |
+| Dataset Format | CSV, JSON |
+| Version Control | Git and GitHub |
 
-| Field | Data type | Description |
-|---|---|---|
-| `id` | Integer | Unique identifier for each FAQ record. |
-| `question` | String | The FAQ question that the retrieval system matches against a user's query. |
-| `answer` | String | The prepared answer returned when the FAQ is selected. |
-| `category` | String | Topic grouping for the FAQ. |
-| `keywords` | String | Comma-separated related terms that may support searching, filtering, or future retrieval improvements. |
-| `source` | String (URL) | Reference link used when preparing the answer. |
+## 📁 Project Structure
 
-## Categories
-
-The 30 records are organised into these categories:
-
-| Category | Number of FAQs |
-|---|---:|
-| Fundamentals | 5 |
-| Threats | 7 |
-| Network Security | 4 |
-| Account Security | 3 |
-| Defensive Security | 4 |
-| Web Application Security | 4 |
-| Incident Response | 2 |
-| Security Testing | 1 |
-| **Total** | **30** |
-
-## Data quality checks
-
-The prepared dataset was checked for:
-
-- 30 records in each file.
-- Unique FAQ IDs.
-- No empty values in the six dataset fields.
-- Consistent field names and record structure across CSV and JSON.
-- A source URL recorded for each FAQ.
-
-The source links are references for further reading. Before final academic submission, the team should open and verify each source, confirm that it supports the corresponding answer, and record an access date if required by the instructor.
-
-## Loading the files with Python
-
-### Read the CSV file
-
-```python
-import pandas as pd
-
-faqs = pd.read_csv("cybersecurity_faq_dataset.csv")
-print(faqs.head())
-print("Number of FAQs:", len(faqs))
+```text
+FAQ-Chatbot-Using-Retrieval/
+│
+├── app/
+│   └── streamlit_app.py
+│
+├── data/
+│   ├── cybersecurity_faq_dataset.csv
+│   └── cybersecurity_faq_dataset.json
+│
+├── docs/
+│   ├── architecture.md
+│   └── methodology.md
+│
+├── src/
+│   ├── __init__.py
+│   ├── data_loader.py
+│   ├── preprocessing.py
+│   ├── retrieval.py
+│   ├── semantic_retrieval.py
+│   ├── similarity.py
+│   ├── chatbot.py
+│   └── evaluation.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_data_loader.py
+│   ├── test_preprocessing.py
+│   ├── test_retrieval.py
+│   ├── test_similarity.py
+│   └── test_chatbot.py
+│
+├── .gitignore
+├── requirements.txt
+├── packages.txt
+└── README.md
 ```
 
-### Read the JSON file
+## ⚙️ Installation and Setup
 
-```python
-import json
+### 1. Clone the Repository
 
-with open("cybersecurity_faq_dataset.json", "r", encoding="utf-8") as file:
-    faqs = json.load(file)
-
-print(faqs[0])
-print("Number of FAQs:", len(faqs))
+```bash
+git clone https://github.com/RomaerAhuja/FAQ-Chatbot-Using-Retrieval.git
 ```
 
-## How the dataset fits into the chatbot
+### 2. Navigate to the Project Directory
 
-1. The user submits a question through the chatbot interface.
-2. The text-preprocessing module normalises the question.
-3. The retrieval module compares the user's question with FAQ questions in this dataset.
-4. The similarity-ranking module selects the best candidate.
-5. The application returns the answer associated with that FAQ.
-6. If the match score is below the agreed confidence threshold, the chatbot should display a fallback response rather than present an uncertain answer as correct.
+```bash
+cd FAQ-Chatbot-Using-Retrieval
+```
 
-The preprocessing, TF-IDF/vectorisation, similarity scoring, confidence threshold, and Streamlit interface are implemented by the relevant team members; this dataset supplies the FAQ content for those modules.
+### 3. Create a Virtual Environment
 
-## Limitations
+```bash
+python -m venv venv
+```
 
-- This is a starter knowledge base containing 30 FAQs, not a complete cybersecurity reference.
-- Answers are short educational summaries and should not be treated as incident-response, legal, or professional security advice.
-- Similarity-based retrieval can return an incorrect match. The team should test relevant, ambiguous, and out-of-scope questions and configure a suitable fallback threshold.
-- The FAQ content and source links should be reviewed by the team before final release.
+### 4. Activate the Virtual Environment
 
-## References used
+**Windows:**
 
-The dataset includes source URLs in the `source` field of every record. The references include public cybersecurity guidance and terminology resources, such as:
+```cmd
+venv\Scripts\activate
+```
 
-- NIST Computer Security Resource Center: https://csrc.nist.gov/
-- NIST SP 800-63-4 glossary: https://pages.nist.gov/800-63-4/sp800-63/glossary/
-- OWASP: https://owasp.org/
-- UK National Cyber Security Centre guidance: https://www.ncsc.gov.uk/section/advice-guidance/all-topics
+**Linux/macOS:**
 
-Use the individual `source` URL in each FAQ record as the first reference when reviewing that answer.
+```bash
+source venv/bin/activate
+```
 
-## Ownership and contribution
+### 5. Upgrade pip
 
-**Module:** M2 — FAQ Dataset & Knowledge Base  
-**Contributor:** Govind Tiwari  
-**Deliverables:** `cybersecurity_faq_dataset.csv`, `cybersecurity_faq_dataset.json`, and this README.
+```bash
+python -m pip install --upgrade pip
+```
+
+### 6. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+The first execution of the semantic retrieval engine may download the pretrained Sentence Transformer model. An internet connection is required for the initial download.
+
+## ▶️ Running the Application
+
+From the project root directory, execute:
+
+```bash
+python -m streamlit run app/streamlit_app.py
+```
+
+The application will be available at:
+
+```text
+http://localhost:8501
+```
+
+## 🧠 System Architecture
+
+CyberFAQ follows a hybrid information retrieval architecture.
+
+### Processing Pipeline
+
+1. User submits a cybersecurity question.
+2. Text preprocessing normalizes the input.
+3. TF-IDF converts the query into a numerical representation.
+4. Sentence Transformers generate a semantic embedding.
+5. Cosine similarity calculates similarity scores.
+6. Hybrid scoring combines lexical and semantic similarity.
+7. The retrieval engine ranks the FAQ records.
+8. The chatbot checks the configured similarity threshold.
+9. The system returns the most relevant answer or a fallback response.
+
+### Hybrid Scoring Formula
+
+The current implementation uses:
+
+```text
+Hybrid Score = (0.35 × TF-IDF Score)
+             + (0.65 × Semantic Score)
+```
+
+The weights are configurable in the similarity engine.
+
+## 📊 Dataset
+
+The project uses a structured cybersecurity FAQ dataset containing:
+
+- FAQ ID
+- Question
+- Answer
+- Category
+- Keywords
+- Source
+
+The dataset is maintained in both CSV and JSON formats.
+
+## 🧪 Testing
+
+The project uses Pytest for automated testing.
+
+Execute all tests using:
+
+```bash
+python -m pytest tests -v
+```
+
+The test suite covers:
+
+- Dataset loading
+- Text preprocessing
+- TF-IDF retrieval
+- Similarity calculation
+- FAQ ranking
+- Chatbot responses
+- Input validation
+- Multiple-question handling
+
+## 📈 Evaluation
+
+The project includes a retrieval evaluation module that measures:
+
+- Top-1 Accuracy
+- Top-3 Accuracy
+
+Evaluation requires independently prepared test queries with manually verified expected FAQ IDs.
+
+Actual evaluation results should be reported only after running the evaluation against the completed test dataset.
+
+## 🔮 Future Scope
+
+Potential future enhancements include:
+
+- Expanding the cybersecurity knowledge base
+- Improving retrieval accuracy
+- Context-aware conversational interactions
+- Retrieval-Augmented Generation (RAG)
+- Multilingual question answering
+- User feedback collection
+- Advanced evaluation metrics
+- Integration with external cybersecurity knowledge sources
+
+## 👨‍💻 Author
+
+**Romaer Ahuja**
+
+GitHub Repository:
+
+https://github.com/RomaerAhuja/FAQ-Chatbot-Using-Retrieval
 
 ---
 
-Prepared for the college team project **FAQ Chatbot Using Retrieval**.
+*CyberFAQ — Making cybersecurity knowledge more accessible through intelligent information retrieval.*
