@@ -1,4 +1,13 @@
 import streamlit as st
+import sys
+from pathlib import Path
+
+# Get the project root directory
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Add project root to Python's module search path
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 from src.chatbot import FAQChatbot
 
